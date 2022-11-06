@@ -4,8 +4,10 @@ import { IAddVideoDTO } from "../../../dtos/add-video-dto";
 import { IVideoRepository } from "../../../repositories/video-repository";
 
 class VideoPrismaRepository implements IVideoRepository {
-  async add(data: IAddVideoDTO): Promise<void> {
-    await prisma.video.create({ data })
+  async add(data: IAddVideoDTO): Promise<Video> {
+    const video = await prisma.video.create({ data })
+
+    return video
   }
 
   async list(): Promise<Video[]> {

@@ -2,6 +2,8 @@ import { ICreateAccountDTO } from "../../dtos/create-account-dto";
 import { IAccountRepository } from "../../repositories/account-repository";
 import { hash } from "bcrypt";
 import { inject, injectable } from "tsyringe";
+import { Account } from "../../domain/entities/account-entity";
+import { AccountMap } from "../../mapper/account-mapper";
 
 @injectable()
 class SignupAccountUseCase {
@@ -10,7 +12,7 @@ class SignupAccountUseCase {
     private accountRepository: IAccountRepository
   ) { }
 
-  async execute({ email, name, password }: ICreateAccountDTO): Promise<void> {
+  async execute({ email, name, password }: ICreateAccountDTO): Promise<Account> {
     const accountAlreadyExists = await this.accountRepository.findByEmail(email)
 
     if (accountAlreadyExists) {
@@ -19,7 +21,9 @@ class SignupAccountUseCase {
 
     const passwordHash = await hash(password, 8);
 
-    await this.accountRepository.create({ email, name, password: passwordHash })
+    const account = await this.accountRepository.create({ email, name, password: passwordHash })
+
+    return account
   }
 }
 export { SignupAccountUseCase }

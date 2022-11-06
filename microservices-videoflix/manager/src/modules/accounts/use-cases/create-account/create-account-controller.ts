@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 import { CreateAccountUseCase } from "./create-account-use-case";
+import { kafka } from "../../../../infra/kafka";
+import { CompressionTypes, Partitioners } from 'kafkajs';
 
 class CreateAccountController {
   async handle(request: Request, response: Response): Promise<Response> {
@@ -20,7 +22,23 @@ class CreateAccountController {
 
       const createAccountUseCase = container.resolve(CreateAccountUseCase)
 
-      await createAccountUseCase.execute({ name, email, password, isAdmin })
+      const account = await createAccountUseCase.execute({ name, email, password, isAdmin })
+
+      const producer = kafka.producer({ createPartitioner: Partitioners.DefaultPartitioner });
+
+      await producer.connect()
+
+      await producer.send({
+        topic: 'manager.create-account',
+        compression: CompressionTypes.GZIP,
+        messages: [
+          {
+            value: JSON.stringify(account)
+          }
+        ]
+      })
+
+      await producer.disconnect()
 
       return response.status(201).send()
     } catch (error) {

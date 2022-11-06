@@ -11,7 +11,7 @@ class ProfileAccountUseCase {
   ) { }
 
   async execute(id: string): Promise<IAccountResponseDTO> {
-    const account = await this.accountRepository.findById(id)
+    const account = await this.accountRepository.findByAuthAccountId(id)
 
     return AccountMap.toDto(account)
   }

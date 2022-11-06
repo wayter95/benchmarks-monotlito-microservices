@@ -4,8 +4,10 @@ import { ICreateAccountDTO } from "../../../dtos/create-account-dto";
 import { IAccountRepository } from "../../../repositories/account-repository";
 
 class AccountPrismaRepository implements IAccountRepository {
-  async create(data: ICreateAccountDTO): Promise<void> {
-    await prisma.accounts.create({ data })
+  async create(data: ICreateAccountDTO): Promise<Account> {
+    const account = await prisma.accounts.create({ data })
+
+    return account!
   }
 
   async findByEmail(email: string): Promise<Account> {

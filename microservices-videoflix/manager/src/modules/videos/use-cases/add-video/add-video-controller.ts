@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
+import { CompressionTypes, Partitioners } from "kafkajs";
 import { container } from "tsyringe";
+import { kafka } from "../../../../infra/kafka";
 import { AddVideoUseCase } from "./add-video-use-case";
 
 class AddVideoController {
@@ -20,7 +22,23 @@ class AddVideoController {
 
       const addVideoUseCase = container.resolve(AddVideoUseCase)
 
-      await addVideoUseCase.execute({ title, description, url })
+      const video = await addVideoUseCase.execute({ title, description, url })
+
+      const producer = kafka.producer({ createPartitioner: Partitioners.DefaultPartitioner });
+
+      await producer.connect()
+
+      await producer.send({
+        topic: 'manager.add-video',
+        compression: CompressionTypes.GZIP,
+        messages: [
+          {
+            value: JSON.stringify(video)
+          }
+        ]
+      })
+
+      await producer.disconnect()
 
       return response.status(201).send()
     } catch (error) {

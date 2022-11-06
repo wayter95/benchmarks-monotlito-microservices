@@ -28,7 +28,7 @@ export async function AuthAdminMiddleware(
 
     const account = await prisma.accounts.findUnique({
       where: {
-        id
+        authAccountId: id
       }
     })
 
