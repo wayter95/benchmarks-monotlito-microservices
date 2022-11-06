@@ -9,6 +9,5 @@ COPY . .
 
 RUN yarn build
 RUN yarn prisma generate
-RUN yarn prisma db push
 
 EXPOSE 5050
