@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  db-manager:
+    container_name: db-manager
+    image: postgres:15
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=manager
+      - POSTGRES_USER=manager
+      - POSTGRES_DB=manager
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    ports:
+      - 5435:5435
+    networks:
+      - net1
+    command: -p 5435
+  
+  videoflix-manager:
+    container_name: videoflix-manager
+    build: .
+    restart: always
+    environment:
+      - PORT=5053
+      - JWT_SECRET=aj1312afvfnbiobv
+    ports:
+      - 5053:5053
+    command: yarn start
+    networks:
+      - net1
+
+networks:
+  net1:
+    driver: bridge

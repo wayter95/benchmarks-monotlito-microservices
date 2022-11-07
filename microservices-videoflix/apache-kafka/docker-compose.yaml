@@ -8,6 +8,8 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
     ports:
       - 22181:2181
+    networks:
+      - net1
 
   kafka:
     image: confluentinc/cp-kafka:latest
@@ -15,6 +17,8 @@ services:
       - zookeeper
     ports:
       - 29092:29092
+    networks:
+      - net1
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
@@ -29,7 +33,13 @@ services:
       - kafka
     ports:
       - 8080:8080
+    networks:
+      - net1
     environment:
       KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
       KAFKA_CLUSTERS_0_NAME: local
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+
+networks:
+  net1:
+    driver: bridge

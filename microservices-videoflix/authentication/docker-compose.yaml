@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  db-authentication:
+    container_name: db-authentication
+    image: postgres:15
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=authentication
+      - POSTGRES_USER=authentication
+      - POSTGRES_DB=authentication
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    ports:
+      - 5433:5433
+    networks:
+      - net1
+    command: -p 5433
+  
+  videoflix-authentication:
+    container_name: videoflix-authentication
+    build: .
+    restart: always
+    environment:
+      - PORT=5051
+      - JWT_SECRET=aj1312afvfnbiobv
+    ports:
+      - 5051:5051
+    command: yarn start
+    networks:
+      - net1
+
+networks:
+  net1:
+    driver: bridge

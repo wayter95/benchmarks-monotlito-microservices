@@ -8,6 +8,103 @@ networks:
     external: true
 
 services:
+  db-videoflix:
+    container_name: db-videoflix
+    image: postgres:15
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=videoflix
+      - POSTGRES_USER=videoflix
+      - POSTGRES_DB=videoflix
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    ports:
+      - 5450:5450
+    networks:
+      - net1
+    command: -p 5450
+
+  authentication:
+    container_name: videoflix-authentication
+    build: ./authentication
+    restart: always
+    environment:
+      - PORT=5051
+      - JWT_SECRET=aj1312afvfnbiobv
+      - BROKER_KAFKA=kafka:9092
+    ports:
+      - 5051:5051
+    command: yarn start
+    networks:
+      - net1
+
+  customer:
+    container_name: videoflix-customer
+    build: ./customer
+    restart: always
+    environment:
+      - PORT=5052
+      - JWT_SECRET=aj1312afvfnbiobv
+      - BROKER_KAFKA=kafka:9092
+    ports:
+      - 5052:5052
+    command: yarn start
+    networks:
+      - net1
+  
+  manager:
+    container_name: videoflix-manager
+    build: ./manager
+    restart: always
+    environment:
+      - PORT=5053
+      - JWT_SECRET=aj1312afvfnbiobv
+      - BROKER_KAFKA=kafka:9092
+    ports:
+      - 5053:5053
+    command: yarn start
+    networks:
+      - net1
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - 22181:2181
+    networks:
+      - net1
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - zookeeper
+    ports:
+      - 29092:29092
+    networks:
+      - net1
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+  kafka_ui:
+    image: provectuslabs/kafka-ui:latest
+    depends_on:
+      - kafka
+    ports:
+      - 8080:8080
+    networks:
+      - net1
+    environment:
+      KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+
   kong-migrations:
     image: "kong:2.3.2-alpine"
     command: kong migrations bootstrap

@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  db-customer:
+    container_name: db-customer
+    image: postgres:15
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=customer
+      - POSTGRES_USER=customer
+      - POSTGRES_DB=customer
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    ports:
+      - 5434:5434
+    networks:
+      - net1
+    command: -p 5434
+  
+  videoflix-customer:
+    container_name: videoflix-customer
+    build: .
+    restart: always
+    environment:
+      - PORT=5052
+      - JWT_SECRET=aj1312afvfnbiobv
+    ports:
+      - 5052:5052
+    command: yarn start
+    networks:
+      - net1
+
+networks:
+  net1:
+    driver: bridge

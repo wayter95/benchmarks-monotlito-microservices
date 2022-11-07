@@ -4,9 +4,11 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node dist/src/server.js",
+    "start": "node dist/server.js",
     "dev": "nodemon --watch 'src/' --exec 'ts-node src/server.ts' -e ts",
-    "build": "yarn rimraf dist && yarn tsc"
+    "build": "yarn rimraf dist && yarn tsc",
+    "up": "yarn build && docker-compose up -d",
+    "stop": "docker-compose down"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
