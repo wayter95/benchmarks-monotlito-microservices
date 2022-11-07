@@ -1,28 +1,79 @@
-#Benchmark Monolito Vs Microserviços
+# Videoflix
 
-##Monolito
+## _Comparação de uma aplicação "Monolita" vs "Microserviços"_
 
-##Microserviços
+A aplicação se trata de um serviço de streaming de vídeos onde os Gerenciadores adicionam vídeos de sua preferência e os clientes cadastrados possam escolher um e assistir.
 
-##Node js
-Usado para a criação do Back-End, o NodeJS é uma ferramenta bastante usada por empresas, como Netflix e Uber. Ele é um interpretador de JavaScript que não necessita de um browser para poder ser executado.
+## Features
 
-##Typescript
-O TypeScript nada mais é do que um superpoder dado ao JavaScript(linguagem de programação) para adicionar recursos e ferramentas que não existem na linguagem nativa, como a tipagem estática (por isso o nome) e orientação a objetos.
+- Cadastro de usúarios (Gerenciador/Clientes)
+- Autenticação de usúarios (Gerenciador/Clientes)
+- Perfil de usúarios - Busca de dados do usúario por Id (Gerenciador/Clientes)
+- Cadastro de vídeos (Gerenciador)
+- Listagem de vídeos cadastrados (Gerenciador/Clientes)
+- Assistir videos - Busca de video por Id (Clientes)
 
-##PostgreSQL
-Aqui é onde fazemos o armazenamento dos dados. O banco de dados PostgreSQL é um banco relacional(Os dados são vistos pelo usuário em forma de tabelas)
+O desenvolvimento de duas versoões foi feito para fazer uma comparação
+entre ambas com o objetivo de analisar as mestricas de resposta HTTP e o consumo
+de hardware na execução dos testes.
 
-##Docker
-Como utilizaremos microserviços, o Docker é excelente pra isso, pois o mesmo facilita a criação e administração de ambientes isolados. Ele possibilita o empacotamento de
-uma aplicação ou ambiente dentro de um container, se tornando portátil para qualquer outro host que contenha o Docker instalado. 
+## Techs Monolito
 
-##Apache Kafka
-Basicamente o Kafka consegue fazer uma movimentação imensa de dados, em tempo real, não apenas de um ponto X até Y, mas também de X até Z simultaneamente.
+Tecnologias utilizadas no desenvolvimento do monolito
 
-##Kong
+- Node JS - Executar códigos javascript como servidor
+- Typescript - Adicionar tipagem ao javascript
+- Express - Permitir requisições HTTP REST
+- Jsonwebtoken - Gerar e verificar a autenticação de usúarios
+- Postgres - Banco de dados
+- Docker - Controler de containers
 
-##konga
+## Techs Microserviços
 
-##AWS
-É a nossa nuvem fornecida pela Amazon. A AWS fornece pra nós serviços de computação em nuvem, dentre esses serviços temos por exemplo: Banco de dados, armazenamento, IA, data lakes, IOT, etc.
+Tecnologias utilizadas no desenvolvimento dos microserviços
+
+- Node JS - Executar códigos javascript como servidor
+- Typescript - Adicionar tipagem ao javascript
+- Express - Permitir requisições HTTP REST
+- Jsonwebtoken - Gerar e verificar a autenticação de usúarios
+- Postgres - Banco de dados
+- Docker - Controle e instalação de containers
+- Apache Kafka - Comunicação entre os serviços
+- Kong - Gateway e balaceamento dos serviços
+
+## Ambiente de instalação
+
+Para testar os serviços foi criado duas instancia EC2 na aws do tipo T3.large,
+sendo uma instancia para cada aplicacao. Quais as configuraçoes das instancias são:
+
+- Sistema Operacional: Ubuntu 22.04 - 64bits
+- vCPU: 2
+- Memoria RAM: 8gb
+- Armazenamento: 20gb
+
+## Rotas testadas
+
+Os tester foram feitos em 3 rotas diferentes para que sejam analisados todos os modulos
+dentro dos microserviços e do monolito, são elas:
+
+| Modulo       | Tipo de Requisição | Monolito                | Microserviços          |
+| ------------ | ------------------ | ----------------------- | ---------------------- |
+| Autenticação | POST               | /account/authentication | /authentication/signin |
+| Gerenciador  | POST               | /video                  | /manager/video/add     |
+| Cliente      | GET                | /video                  | /customer/videos       |
+
+## Comparações
+
+Para cada metrica foram feitos 3 testes em cada uma das rotas mostradas acima e feito a media dos resultados.
+
+- Latência: diferença entre o tempo de envio de uma requisição e o tempo da chegada da resposta para essa requisição.
+- Vazão:​ quantidade de requisições respondidas por segundo.
+- Uso do hardware: ​taxas de uso do CPU e memória RAM.
+
+### Latência
+
+| Modulo       | Monolito | Microserviços |
+| ------------ | -------- | ------------- |
+| Autenticação | 350 ms   | 252 ms        |
+| Gerenciador  | 373 ms   | 265 ms        |
+| Cliente      | 297 ms   | 232 ms        |
