@@ -8,15 +8,15 @@ import {group , sleep} from 'k6';
 
 
 export default () => {
-    group('Monolito', () => {
-      //monolitoAuthentication();
-      //monolitoManager()
-      //monolitoCustomer()
-    });
+    // group('Monolito', () => {
+    //   //monolitoAuthentication();
+    //   //monolitoManager()
+    //   //monolitoCustomer()
+    // });
     group('Microservices', () => {
       //microservicesAuthentication()
-      //microservicesManager()
-      microservicesCustomer()
+      microservicesManager()
+      //microservicesCustomer()
     });
 
     sleep(1);

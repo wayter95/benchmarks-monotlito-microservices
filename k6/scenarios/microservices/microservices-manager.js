@@ -17,7 +17,7 @@ export default function () {
   const params = {
     headers: {
       'Content-Type': 'application/json',
-      'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImYxMDVkZGE3LWQ0YzItNDRiNC1hN2Y5LWZkMzY3MTA2Njc1NSIsImlhdCI6MTY2Nzg2OTExNiwiZXhwIjoxNjY3ODcyNzE2LCJzdWIiOiJmMTA1ZGRhNy1kNGMyLTQ0YjQtYTdmOS1mZDM2NzEwNjY3NTUifQ.nqezCg2AEjrm81KWPr2t2JTzF4gSsOcYCBI2UYXB8o4',
+      'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImYxMDVkZGE3LWQ0YzItNDRiNC1hN2Y5LWZkMzY3MTA2Njc1NSIsImlhdCI6MTY2NzkxNDY3MiwiZXhwIjoxNjY3OTE4MjcyLCJzdWIiOiJmMTA1ZGRhNy1kNGMyLTQ0YjQtYTdmOS1mZDM2NzEwNjY3NTUifQ.1UBop_sTxo3wOjZcDp_nDdlfjuJ5aHAyopN8RUkN_h0',
     },
   };
 

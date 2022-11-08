@@ -97,9 +97,9 @@ Para cada metrica foram feitos 3 testes em cada uma das rotas mostradas acima e 
 
 | Modulo       | Monolito | Microserviços |
 | ------------ | -------- | ------------- |
-| Autenticação | 35       |               |
-| Gerenciador  | 41       |               |
-| Cliente      | 89       |               |
+| Autenticação | 35       | 41            |
+| Gerenciador  | 41       | 28            |
+| Cliente      | 89       | 107           |
 
 ### Uso do hardware
 
