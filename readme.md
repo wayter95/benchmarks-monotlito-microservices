@@ -41,6 +41,13 @@ Tecnologias utilizadas no desenvolvimento dos microserviços
 - Apache Kafka - Comunicação entre os serviços
 - Kong - Gateway e balaceamento dos serviços
 
+## Techs Testes
+
+Tecnologias utilizadas para fazer os test de requisição e stress
+
+- Postman - Plataforma para testes http rest
+- k6 - Feramenta para gerar testes de stress nas aplicações
+
 ## Ambiente de instalação
 
 Para testar os serviços foi criado duas instancia EC2 na aws do tipo T3.large,
