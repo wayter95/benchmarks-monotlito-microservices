@@ -17,6 +17,14 @@ O desenvolvimento de duas versoões foi feito para fazer uma comparação
 entre ambas com o objetivo de analisar as mestricas de resposta HTTP e o consumo
 de hardware na execução dos testes.
 
+## Arquitetura Monolito
+
+![mono](images/monolito.jpeg)
+
+## Arquitetura Microserviços
+
+![mono](images/microservices.jpeg)
+
 ## Techs Monolito
 
 Tecnologias utilizadas no desenvolvimento do monolito
