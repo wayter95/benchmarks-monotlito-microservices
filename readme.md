@@ -77,3 +77,29 @@ Para cada metrica foram feitos 3 testes em cada uma das rotas mostradas acima e 
 | Autenticação | 350 ms   | 252 ms        |
 | Gerenciador  | 373 ms   | 265 ms        |
 | Cliente      | 297 ms   | 232 ms        |
+
+### Vazão
+
+| Modulo       | Monolito | Microserviços |
+| ------------ | -------- | ------------- |
+| Autenticação | 35       |               |
+| Gerenciador  | 41       |               |
+| Cliente      | 89       |               |
+
+### Uso do hardware
+
+#### Monolito
+
+| Modulo       | RAM   | CPU   |
+| ------------ | ----- | ----- |
+| Autenticação | 428mb | 8.49% |
+| Gerenciador  | 413mb | 7.59% |
+| Cliente      | 649mb | 1.29% |
+
+#### Microserviços
+
+| Modulo       | RAM    | CPU   |
+| ------------ | ------ | ----- |
+| Autenticação | 1958mb | 2.25% |
+| Gerenciador  | 1991mb | 4.8%  |
+| Cliente      | 1981mb | 4.05% |
