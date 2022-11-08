@@ -1,6 +1,6 @@
 # Videoflix
 
-## _Comparação de uma aplicação "Monolita" vs "Microserviços"_
+## _Comparação de uma aplicação "Monolita" vs "Microsserviços"_
 
 A aplicação se trata de um serviço de streaming de vídeos onde os Gerenciadores adicionam vídeos de sua preferência e os clientes cadastrados possam escolher um e assistir.
 
@@ -21,7 +21,7 @@ de hardware na execução dos testes.
 
 ![mono](images/monolito.jpeg)
 
-## Arquitetura Microserviços
+## Arquitetura Microsserviços
 
 ![mono](images/microservices.jpeg)
 
@@ -36,9 +36,9 @@ Tecnologias utilizadas no desenvolvimento do monolito
 - Postgres - Banco de dados
 - Docker - Controler de containers
 
-## Techs Microserviços
+## Techs Microsserviços
 
-Tecnologias utilizadas no desenvolvimento dos microserviços
+Tecnologias utilizadas no desenvolvimento dos microsserviços
 
 - Node JS - Executar códigos javascript como servidor
 - Typescript - Adicionar tipagem ao javascript
@@ -71,7 +71,7 @@ sendo uma instancia para cada aplicacao. Quais as configuraçoes das instancias 
 Os tester foram feitos em 3 rotas diferentes para que sejam analisados todos os modulos
 dentro dos microserviços e do monolito, são elas:
 
-| Modulo       | Tipo de Requisição | Monolito                | Microserviços          |
+| Modulo       | Tipo de Requisição | Monolito                | Microsserviços         |
 | ------------ | ------------------ | ----------------------- | ---------------------- |
 | Autenticação | POST               | /account/authentication | /authentication/signin |
 | Gerenciador  | POST               | /video                  | /manager/video/add     |
@@ -87,19 +87,19 @@ Para cada metrica foram feitos 3 testes em cada uma das rotas mostradas acima e 
 
 ### Latência
 
-| Modulo       | Monolito | Microserviços |
-| ------------ | -------- | ------------- |
-| Autenticação | 350 ms   | 252 ms        |
-| Gerenciador  | 373 ms   | 265 ms        |
-| Cliente      | 297 ms   | 232 ms        |
+| Modulo       | Monolito | Microsserviços |
+| ------------ | -------- | -------------- |
+| Autenticação | 350 ms   | 252 ms         |
+| Gerenciador  | 373 ms   | 265 ms         |
+| Cliente      | 297 ms   | 232 ms         |
 
 ### Vazão
 
-| Modulo       | Monolito | Microserviços |
-| ------------ | -------- | ------------- |
-| Autenticação | 35       | 41            |
-| Gerenciador  | 41       | 28            |
-| Cliente      | 89       | 107           |
+| Modulo       | Monolito | Microsserviços |
+| ------------ | -------- | -------------- |
+| Autenticação | 35       | 41             |
+| Gerenciador  | 41       | 28             |
+| Cliente      | 89       | 107            |
 
 ### Uso do hardware
 
@@ -111,7 +111,7 @@ Para cada metrica foram feitos 3 testes em cada uma das rotas mostradas acima e 
 | Gerenciador  | 413mb | 7.59% |
 | Cliente      | 649mb | 1.29% |
 
-#### Microserviços
+#### Microsserviços
 
 | Modulo       | RAM    | CPU   |
 | ------------ | ------ | ----- |
